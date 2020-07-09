@@ -1,4 +1,7 @@
 ﻿using CarDealershipApp.Commands;
+using CarDealershipApp.Commands.Car;
+using CarDealershipApp.Commands.Client;
+using CarDealershipApp.Commands.Contract;
 using CarDealershipApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,21 +14,27 @@ namespace CarDealershipApp
         private readonly List<Command> _commands;
         private readonly CarRepository _carRepository;
         private readonly ClientRepository _clientRepository;
+        private readonly ContractRepository _contractRepository;
 
         public General()
         {
             _commands = new List<Command>();
             _carRepository = new CarRepository();
             _clientRepository = new ClientRepository();
+            _contractRepository = new ContractRepository();
 
+            // cars
             _commands.Add(new AddCarCommand(_carRepository));
-            _commands.Add(new SellCarCommand(_carRepository,_clientRepository));
+            _commands.Add(new SellCarCommand(_carRepository,_clientRepository,_contractRepository));
             _commands.Add(new ListCarsCommand(_carRepository));
-
-            
+            // clients
             _commands.Add(new AddClientCommand(_clientRepository));
             _commands.Add(new ListClientsCommand(_clientRepository));
             _commands.Add(new FindClientCommand(_clientRepository));
+            // Contracts
+            _commands.Add(new ListContractCommand(_contractRepository));
+            _commands.Add(new FindContractCommand(_contractRepository));
+
         }
 
         public void Start()

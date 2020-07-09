@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarDealershipApp.Commands
+namespace CarDealershipApp.Commands.Client
 {
     public class AddClientCommand : ClientCommand
     {
@@ -20,7 +20,7 @@ namespace CarDealershipApp.Commands
             string clientName = Console.ReadLine();
             Console.WriteLine("Please enter client pasport id");
             string pasportId = Console.ReadLine();
-            Client client = new Client(clientName, pasportId);
+            Domain.Client client = new Domain.Client(clientName, pasportId);
             bool success = _clientRepository.AddClient(client);
             string message = "Client added successfuly";
             if (!success)

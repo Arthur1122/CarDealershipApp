@@ -9,9 +9,11 @@ namespace CarDealershipApp.Domain
         public string Number;
         public bool IsSold { get; set; }
         public Client Client { get; set; }
-        public Car(string number)
+        public decimal Price { get; set; }
+        public Car(string number,decimal price)
         {
             Number = number;
+            Price = price;
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarDealershipApp.Commands
+namespace CarDealershipApp.Commands.Client
 {
     public abstract class ClientCommand : Command
     {

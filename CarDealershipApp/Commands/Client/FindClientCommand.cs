@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CarDealershipApp.Commands
+namespace CarDealershipApp.Commands.Client
 {
     public class FindClientCommand : ClientCommand
     {
@@ -19,7 +19,7 @@ namespace CarDealershipApp.Commands
         {
             Console.WriteLine("Please enter client pasport id");
             string pasportId = Console.ReadLine();
-            Client client = _clientRepository.FindClient(pasportId);
+            Domain.Client client = _clientRepository.FindClient(pasportId);
             bool success = true;
             string message = "";
 

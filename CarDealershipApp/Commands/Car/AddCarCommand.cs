@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using CarDealershipApp.Domain;
 
-namespace CarDealershipApp.Commands
+namespace CarDealershipApp.Commands.Car
 {
     public class AddCarCommand : CarCommand
     {
@@ -19,7 +19,10 @@ namespace CarDealershipApp.Commands
         {
             Console.WriteLine("Car number: ");
             string number = Console.ReadLine();
-            Car car = new Car(number);
+            Console.WriteLine("Car price: ");
+            string str = Console.ReadLine();
+            decimal price = Decimal.Parse(str);
+            Domain.Car car = new Domain.Car(number,price);
             bool success = _carRepository.Add(car);
             string message = "Car added successfully";
             if (!success)

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace CarDealershipApp.Commands
+namespace CarDealershipApp.Commands.Client
 {
     public class ListClientsCommand : ClientCommand
     {
@@ -19,7 +19,7 @@ namespace CarDealershipApp.Commands
         public override CommandResult Execute()
         {
             Console.WriteLine("______________________________");
-            foreach (Client client in _clientRepository.ClientsList())
+            foreach (Domain.Client client in _clientRepository.ClientsList())
             {
                 if(client.Cars == null || client.Cars.Count < 1)
                     Console.WriteLine($"Name: {client.Name}  PasportId: {client.PasportId}");
