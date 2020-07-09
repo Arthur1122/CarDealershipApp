@@ -10,14 +10,22 @@ namespace CarDealershipApp
     {
         private readonly List<Command> _commands;
         private readonly CarRepository _carRepository;
+        private readonly ClientRepository _clientRepository;
 
         public General()
         {
             _commands = new List<Command>();
             _carRepository = new CarRepository();
+            _clientRepository = new ClientRepository();
+
             _commands.Add(new AddCarCommand(_carRepository));
-            _commands.Add(new SellCarCommand(_carRepository));
+            _commands.Add(new SellCarCommand(_carRepository,_clientRepository));
             _commands.Add(new ListCarsCommand(_carRepository));
+
+            
+            _commands.Add(new AddClientCommand(_clientRepository));
+            _commands.Add(new ListClientsCommand(_clientRepository));
+            _commands.Add(new FindClientCommand(_clientRepository));
         }
 
         public void Start()
@@ -58,7 +66,7 @@ namespace CarDealershipApp
             ConsoleColor color = ConsoleColor.Green;
             if (!commandResult.Success)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                color = ConsoleColor.Red;
             }
 
             ConsoleHelper.WriteLineColored(commandResult.Message, color);
