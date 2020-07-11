@@ -1,16 +1,18 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace CarDealershipApp.Repository
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private List<Client> _clients;
-
+        private int _clientId = 0;
         public ClientRepository()
         {
             _clients = new List<Client>();
@@ -23,11 +25,7 @@ namespace CarDealershipApp.Repository
 
         public Client FindClient(string passportId)
         {
-            if (this.ClientsList().Where(c => c.PasportId == passportId).Any())
-            {
-                return this.ClientsList().Where(c => c.PasportId == passportId).FirstOrDefault();
-            }
-            return null;
+            return ClientsList().SingleOrDefault(c => c.PasportId == passportId);
         }
 
         public int Count()
@@ -41,19 +39,9 @@ namespace CarDealershipApp.Repository
             {
                 return false;
             }
+            client.Id = ++_clientId;
             _clients.Add(client);
             return true;
         }
-
-        public void AddCar(string pasportId,Car car)
-        {
-            Client client = this.FindClient(pasportId);
-            if (client.Cars == null)
-                client.Cars = new List<Car>();
-
-            client.Cars.Add(car);
-        }
-
-
     }
 }

@@ -2,6 +2,7 @@
 using CarDealershipApp.Commands.Car;
 using CarDealershipApp.Commands.Client;
 using CarDealershipApp.Commands.Contract;
+using CarDealershipApp.Interface;
 using CarDealershipApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,9 @@ namespace CarDealershipApp
     public class General
     {
         private readonly List<Command> _commands;
-        private readonly CarRepository _carRepository;
-        private readonly ClientRepository _clientRepository;
-        private readonly ContractRepository _contractRepository;
+        private readonly ICarRepository _carRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly IContractRepository _contractRepository;
 
         public General()
         {

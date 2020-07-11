@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 
 namespace CarDealershipApp.Commands.Car
 {
     public class AddCarCommand : CarCommand
     {
-        public AddCarCommand(CarRepository carRepository) : base(carRepository) { }
+        public AddCarCommand(ICarRepository carRepository) : base(carRepository) { }
 
         public override string CommandText()
         {

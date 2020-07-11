@@ -1,4 +1,5 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,15 @@ using System.Text;
 
 namespace CarDealershipApp.Repository
 {
-    public class ContractRepository
+    public class ContractRepository : IContractRepository
     {
         private long _currentContractId = 0;
         private List<Contract> _contracts;
 
+        public ContractRepository()
+        {
+            _contracts = new List<Contract>();
+        }
         public List<Contract> Contracts()
         {
             return _contracts;
@@ -21,19 +26,12 @@ namespace CarDealershipApp.Repository
         }
         public Contract FindContract(long contractId)
         {
-            if(this.Contracts().Where(c=>c.ContractId == contractId).Any())
-            {
-                return this.Contracts().Where(c => c.ContractId == contractId).First();
-            }
-            return null;
+           return Contracts().SingleOrDefault(c => c.Id == contractId);
         }
 
         public void AddContract(Contract contract)
         {
-            if (_contracts == null)
-                _contracts = new List<Contract>();
-
-            contract.ContractId = ++_currentContractId;
+            contract.Id = ++_currentContractId;
             _contracts.Add(contract); 
         }
 

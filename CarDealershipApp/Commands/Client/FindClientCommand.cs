@@ -1,4 +1,5 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using CarDealershipApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace CarDealershipApp.Commands.Client
 {
     public class FindClientCommand : ClientCommand
     {
-        public FindClientCommand(ClientRepository clientRepository):base(clientRepository){ }
+        public FindClientCommand(IClientRepository clientRepository):base(clientRepository){ }
         public override string CommandText()
         {
             return "find client";

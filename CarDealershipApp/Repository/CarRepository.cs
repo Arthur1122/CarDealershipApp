@@ -1,4 +1,5 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,11 @@ using System.Text;
 
 namespace CarDealershipApp.Repository
 {
-    public class CarRepository
+    public class CarRepository : ICarRepository
     {
         private LinkedList<Car> _cars;
-        
+        private int _count = 0;
+        private int _carId = 0;
         public CarRepository()
         {
             _cars = new LinkedList<Car>();
@@ -17,7 +19,7 @@ namespace CarDealershipApp.Repository
 
         public int Count()
         {
-            return _cars.Where(c=>c.IsSold == false).ToList().Count;
+            return _count;
         }
 
         public LinkedList<Car> List()
@@ -31,10 +33,15 @@ namespace CarDealershipApp.Repository
             {
                 return false;
             }
+            car.Id = ++_carId;
             _cars.AddLast(car);
+            ++_count;
             return true;
         }
-
+        public Car FindCar(string number)
+        {
+            return List().SingleOrDefault(c => c.Number == number);
+        }
         public bool Sell(string number)
         {
             if(this.List().Where(c=>c.Number == number && c.IsSold == false).Any())
@@ -42,6 +49,13 @@ namespace CarDealershipApp.Repository
                 return true;
             }
             return false;
+        }
+
+        public void SellCar(Car car, Client client)
+        {
+            --_count;
+            car.IsSold = true;
+            client.Cars.Add(car);
         }
     }
 }

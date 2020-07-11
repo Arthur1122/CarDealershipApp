@@ -1,4 +1,5 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using CarDealershipApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace CarDealershipApp.Commands.Car
 {
     public class SellCarCommand : CarCommand
     {
-        private ClientRepository _clientRepository;
-        private ContractRepository _contractRepository;
-        public SellCarCommand(CarRepository carRepository,ClientRepository clientRepository,ContractRepository contractRepository) : base(carRepository) 
+        private IClientRepository _clientRepository;
+        private IContractRepository _contractRepository;
+        public SellCarCommand(ICarRepository carRepository,IClientRepository clientRepository,IContractRepository contractRepository) : base(carRepository) 
         {
             _clientRepository = clientRepository;
             _contractRepository = contractRepository;
@@ -40,22 +41,20 @@ namespace CarDealershipApp.Commands.Car
             }
             else
             {
-                Domain.Car car = _carRepository.List().Where(c => c.Number == number).FirstOrDefault();
+                Domain.Car car = _carRepository.FindCar(number);
                 Domain.Client client = _clientRepository.FindClient(pasportId);
 
                 if (client == null)
                 {
                     client = new Domain.Client(name, pasportId);
+                    _clientRepository.AddClient(client);
                     car.Client = client;
                 }
                 else
                     car.Client = client;
 
-                car.IsSold = true;
-                if (client.Cars == null)
-                    client.Cars = new List<Domain.Car>();
-                client.Cars.Add(car);
-
+                _carRepository.SellCar(car,client);
+               
                 _clientRepository.AddClient(client);
 
                 isKeptContract  = KeepContract(car,client);
@@ -63,6 +62,7 @@ namespace CarDealershipApp.Commands.Car
             }
             if(!isKeptContract)
             {
+                isSell = false;
                 message = "There are something wrong plesae try again";
             }
 
@@ -75,12 +75,9 @@ namespace CarDealershipApp.Commands.Car
             Domain.Contract contract = new Domain.Contract(car, client);
             Console.WriteLine("Please enter the contract type is Debit or Credit ?");
             string type = Console.ReadLine();
-            char[] chars = type.ToCharArray();
-            chars[0] = char.ToUpper(chars[0]);
-            type = new string(chars);
             try
             {
-                if (type == ContractType.Debit.ToString())
+                if (type.ToLower() == ContractType.Debit.ToString().ToLower())
                 {
                     contract.TotalCost = car.Price;
                     contract.Type = ContractType.Debit;

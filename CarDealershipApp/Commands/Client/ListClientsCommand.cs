@@ -1,4 +1,5 @@
 ﻿using CarDealershipApp.Domain;
+using CarDealershipApp.Interface;
 using CarDealershipApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CarDealershipApp.Commands.Client
 {
     public class ListClientsCommand : ClientCommand
     {
-        public ListClientsCommand(ClientRepository clientRepository): base(clientRepository){}
+        public ListClientsCommand(IClientRepository clientRepository): base(clientRepository){}
         public override string CommandText()
         {
             return "clients list";
