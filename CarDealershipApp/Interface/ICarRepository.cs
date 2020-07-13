@@ -11,7 +11,6 @@ namespace CarDealershipApp.Interface
         LinkedList<Car> List();
         bool Add(Car car);
         Car FindCar(string number);
-        bool Sell(string number);
         void SellCar(Car car, Client client);
     }
 }

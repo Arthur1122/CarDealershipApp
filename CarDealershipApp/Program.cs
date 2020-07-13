@@ -8,7 +8,7 @@ namespace CarDealershipApp
     {
         static void Main(string[] args)
         {
-            General general = new General();
+            General general = new General(new DbRepository.SqlOptions { ConnectionString = "data source=(localdb)\\MSSQLLocalDB; database=CarDealership; integrated security=SSPI" });
             general.Start();
         }
     }

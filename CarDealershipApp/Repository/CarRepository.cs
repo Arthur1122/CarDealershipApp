@@ -42,15 +42,6 @@ namespace CarDealershipApp.Repository
         {
             return List().SingleOrDefault(c => c.Number == number);
         }
-        public bool Sell(string number)
-        {
-            if(this.List().Where(c=>c.Number == number && c.IsSold == false).Any())
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void SellCar(Car car, Client client)
         {
             --_count;

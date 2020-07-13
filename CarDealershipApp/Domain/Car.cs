@@ -17,5 +17,9 @@ namespace CarDealershipApp.Domain
             Number = number;
             Price = price;
         }
+        public Car()
+        {
+
+        }
     }
 }

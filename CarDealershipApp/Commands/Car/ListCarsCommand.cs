@@ -22,7 +22,7 @@ namespace CarDealershipApp.Commands.Car
             Console.WriteLine("______________________________");
             foreach (Domain.Car car in _carRepository.List().Where(c=>c.IsSold == false))
             {
-                Console.WriteLine(car.Number);
+                Console.WriteLine($"Car nomber of: {car.Number}\nPrice: {car.Price}");
                 Console.WriteLine("______________________________");
             }
             return new CommandResult(true, $"Listed {_carRepository.Count()} cars");

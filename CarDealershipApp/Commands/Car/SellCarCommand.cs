@@ -32,16 +32,15 @@ namespace CarDealershipApp.Commands.Car
             string name = Console.ReadLine();
             Console.WriteLine("Please enter pasportID of cleint");
             string pasportId = Console.ReadLine();
-            bool isSell = _carRepository.Sell(number);
+            var car = _carRepository.FindCar(number);
             string message = "";
             bool isKeptContract = true;
-            if (!isSell)
+            if (car == null)
             {
                 message = $"There is not such car with number of {number}";
             }
             else
             {
-                Domain.Car car = _carRepository.FindCar(number);
                 Domain.Client client = _clientRepository.FindClient(pasportId);
 
                 if (client == null)
@@ -62,11 +61,10 @@ namespace CarDealershipApp.Commands.Car
             }
             if(!isKeptContract)
             {
-                isSell = false;
                 message = "There are something wrong plesae try again";
             }
 
-            return new CommandResult(isSell, message); 
+            return new CommandResult(isKeptContract, message); 
 
         }
 
