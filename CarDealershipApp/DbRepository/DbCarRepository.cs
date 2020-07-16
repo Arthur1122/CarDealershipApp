@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace CarDealershipApp.DbRepository
@@ -12,7 +13,6 @@ namespace CarDealershipApp.DbRepository
     {
         private LinkedList<Car> _cars;
         private int _count = 0;
-        private int _carId = 0;
 
         public DbCarRepository(SqlOptions sqlOptions):base(sqlOptions)
         {
@@ -24,13 +24,12 @@ namespace CarDealershipApp.DbRepository
             Car foundCar = FindCar(car.Number);
             if (foundCar == null)
             {
-                car.Id = ++_carId;
                 ++_count;
                 using (var connection = GetConnection())
                 {
                     SqlCommand sqlCommand = new SqlCommand(
-                        "INSERT INTO Cars (Number,IsSold,ClientId,Price)" +
-                        $"VALUES('{car.Number}',{car.IsSold.GetHashCode()},{car.ClientId},{car.Price})", connection);
+                        "INSERT INTO Cars (Number,IsSold,Price,ClientId) " +
+                        $"VALUES('{car.Number}', {car.IsSold.GetHashCode()} ,{car.Price},null)", connection);
                     sqlCommand.ExecuteNonQuery();
                 }
                 return true;
@@ -40,24 +39,38 @@ namespace CarDealershipApp.DbRepository
 
         public int Count()
         {
-            return _cars.Where(c=>c.IsSold == false).Count();
+            if(_count == 0 && _cars.Where(c => c.IsSold == false).Count() > 1)
+            {
+                _count = _cars.Where(c => c.IsSold == false).Count();
+            }
+            return _count;
         }
 
         public Car FindCar(string number)
         {
+            Car car = null;
             using (var connection = GetConnection())
             {
                 SqlCommand sqlCommand = new SqlCommand(
-                    "SELECT *"+
-                    "FROM Cars" +
-                    $" WHERE Number='{number}'", connection);
+                    "SELECT * "+
+                    "FROM Cars LEFT JOIN " +
+                    "Clients ON Cars.ClientId = Clients.ClientId "+
+                    $"WHERE Number='{number}'", connection);
                 SqlDataReader sdr = sqlCommand.ExecuteReader();
                 if (sdr.Read())
                 {
-                    return new Car { Id = (int)sdr["Id"], Number = (string)sdr["Number"], IsSold = (bool)sdr["IsSold"], Price = (decimal)sdr["Price"], ClientId = (int)sdr["ClientId"] };
+                    car = new Car { Id = (int)sdr["CarId"], Number = (string)sdr["Number"], IsSold = (bool)sdr["IsSold"], Price = (decimal)sdr["Price"]};
+                    car.ClientId = Convert.IsDBNull(sdr["ClientId"]) ? null : (int?)sdr["ClientId"];
+                    if(car.ClientId != null)
+                    {
+                        car.Client = new Client { Id = (int)sdr["ClientId"], Name = (string)sdr["Name"], PasportId = (string)sdr["PasportId"] };
+                        car.Client.Cars.Add(car);
+                    }
+                       
+                    return car;
                 }
                 else
-                    return null;
+                    return car;
 
             }
         }
@@ -71,13 +84,20 @@ namespace CarDealershipApp.DbRepository
                 SqlDataReader sdr = sqlCommand.ExecuteReader();
                 while (sdr.Read())
                 {
-                    _cars.AddLast(new Car { Id = (int)sdr["Id"], Number = (string)sdr["Number"], IsSold = (bool)sdr["IsSold"], Price = (decimal)sdr["Price"], ClientId = (int)sdr["ClientId"] });
+                    _cars.AddLast(new Car
+                    {
+                        Id = (int)sdr["CarId"],
+                        Number = (string)sdr["Number"],
+                        IsSold = (bool)sdr["IsSold"],
+                        Price = (decimal)sdr["Price"],
+                        ClientId = Convert.IsDBNull(sdr["ClientId"]) ? 0 : (int)sdr["ClientId"]
+                    }) ;
                 }
                 return _cars;
 
             }
         }
-
+        // anel verjum
         public void SellCar(Car car, Client client)
         {
             --_count;
@@ -87,8 +107,10 @@ namespace CarDealershipApp.DbRepository
             using (var connection = GetConnection())
             {
                 SqlCommand sqlCommand = new SqlCommand(
-                    "UPDATE Cars"+
-                    $"SET IsSold = {car.IsSold.GetHashCode()}, ClientId = {client.Id}", connection);
+                    "UPDATE Cars "+
+                    $"SET IsSold = {car.IsSold.GetHashCode()}, ClientId = {client.Id} " +
+                    $"WHERE Cars.CarId = {car.Id}", connection);
+                sqlCommand.ExecuteNonQuery();
             }
         }
     

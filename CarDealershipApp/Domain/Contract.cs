@@ -21,6 +21,10 @@ namespace CarDealershipApp.Domain
             Car = car;
             Client = client;
         }
+        public Contract()
+        {
+
+        }
     }
 
     public enum ContractType

@@ -21,13 +21,14 @@ namespace CarDealershipApp
         {
             _commands = new List<Command>();
             _carRepository = new DbCarRepository(sqlOptions);
-            _clientRepository = new ClientRepository();
-            _contractRepository = new ContractRepository();
+            _clientRepository = new DbClientRepository(sqlOptions);
+            _contractRepository = new DbContractRepository(sqlOptions);
 
             // cars
             _commands.Add(new AddCarCommand(_carRepository));
             _commands.Add(new SellCarCommand(_carRepository,_clientRepository,_contractRepository));
             _commands.Add(new ListCarsCommand(_carRepository));
+            _commands.Add(new FindCarCommand(_carRepository));
             // clients
             _commands.Add(new AddClientCommand(_clientRepository));
             _commands.Add(new ListClientsCommand(_clientRepository));

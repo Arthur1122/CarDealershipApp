@@ -28,7 +28,7 @@ namespace CarDealershipApp.Commands.Contract
                 message = $"Contract with this id: {contractId} was not found";
                 success = false;
             }
-            message = $"Here are contract's info with id: {contract.Id}\nclient name: {contract.Client.Name}\nPasportId: {contract.Client.PasportId}\nCar number: {contract.Car.Number}\nprice: {contract.Car.Price}";
+            message = $"Here are contract's info with id: {contract.Id}\nclient name: {contract.Client.Name}\nPasportId: {contract.Client.PasportId}\nCar number: {contract.Car.Number}\nprice: {contract.Car.Price}\nPayment type : {contract.Type}";
             return new CommandResult(success, message);
         }
     }

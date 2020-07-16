@@ -46,16 +46,14 @@ namespace CarDealershipApp.Commands.Car
                 if (client == null)
                 {
                     client = new Domain.Client(name, pasportId);
-                    _clientRepository.AddClient(client);
                     car.Client = client;
+                    _clientRepository.AddClient(client);
                 }
                 else
                     car.Client = client;
 
                 _carRepository.SellCar(car,client);
                
-                _clientRepository.AddClient(client);
-
                 isKeptContract  = KeepContract(car,client);
                 message = $"The number of {number} car was sold succesfully";
             }
@@ -71,6 +69,8 @@ namespace CarDealershipApp.Commands.Car
         private bool KeepContract(Domain.Car car, Domain.Client client)
         {
             Domain.Contract contract = new Domain.Contract(car, client);
+            contract.CarId = car.Id;
+            contract.ClientId = client.Id;
             Console.WriteLine("Please enter the contract type is Debit or Credit ?");
             string type = Console.ReadLine();
             try

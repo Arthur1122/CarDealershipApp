@@ -29,7 +29,11 @@ namespace CarDealershipApp.Commands.Client
                 message = $"Client with this info {pasportId} not found";
                 success = false;
             }
-            message = $"Here are client's info \n\nName: {client.Name}  PasportId: {client.PasportId}";
+            message = $"Here are client's info \nName: {client.Name}  PasportId: {client.PasportId}";
+            foreach (var car in client.Cars)
+            {
+                message += $"\nNumber of car: {car.Number} Price: {car.Price}";
+            }
 
 
             return new CommandResult(success, message);
