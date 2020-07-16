@@ -39,6 +39,7 @@ namespace CarDealershipApp.DbRepository
         public List<Client> ClientsList()
         {
             Client client = null;
+            Car car = new Car();
             using (var connection = GetConnection())
             {
                 SqlCommand sqlCommand = new SqlCommand(
@@ -54,7 +55,12 @@ namespace CarDealershipApp.DbRepository
                         client = new Client { Id = (int)sdr["CLientId"], Name = (string)sdr["Name"], PasportId = (string)sdr["PasportId"] };
                         _clients.Add(client);
                     }
-                    client.Cars.Add(new Car { Id = (int)sdr["CarId"], Number = (string)sdr["Number"], IsSold = (bool)sdr["IsSold"], Price = (decimal)sdr["Price"], ClientId = (int)sdr["ClientId"], Client = client });
+                    car.Id = Convert.IsDBNull(sdr["CarId"]) ? 0 : (int)sdr["CarId"];
+                    if(car.Id > 0)
+                    {
+                        client.Cars.Add(new Car { Id = (int)sdr["CarId"], Number = (string)sdr["Number"], IsSold = (bool)sdr["IsSold"], Price = (decimal)sdr["Price"], ClientId = (int)sdr["ClientId"], Client = client });
+                    }
+                    
                 }
             }
             return _clients;
