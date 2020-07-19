@@ -1,7 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
@@ -11,8 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarDealership.Domain\CarDealership.Domain.csproj" />
-    <ProjectReference Include="..\CarDealership.Repository.AdoNet\CarDealership.Repository.AdoNet.csproj" />
-    <ProjectReference Include="..\CarDealership.Repository.InMemory\CarDealership.Repository.InMemory.csproj" />
     <ProjectReference Include="..\CarDealership.Repository.Interfaces\CarDealership.Repository.Interfaces.csproj" />
   </ItemGroup>
 
