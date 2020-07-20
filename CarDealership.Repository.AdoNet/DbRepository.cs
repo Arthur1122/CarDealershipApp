@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarDealership.Common;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;

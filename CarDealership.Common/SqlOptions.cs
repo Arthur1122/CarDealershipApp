@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
 
-namespace CarDealershipApp.DbRepository
+namespace CarDealership.Common
 {
     public class SqlOptions
     {

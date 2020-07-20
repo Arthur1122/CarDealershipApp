@@ -1,4 +1,5 @@
-﻿using CarDealershipApp.Domain;
+﻿using CarDealership.Common;
+using CarDealershipApp.Domain;
 using CarDealershipApp.Interface;
 using System;
 using System.Collections.Generic;

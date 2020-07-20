@@ -1,4 +1,5 @@
-﻿using CarDealershipApp.Commands;
+﻿using CarDealership.Common;
+using CarDealershipApp.Commands;
 using CarDealershipApp.Commands.Car;
 using CarDealershipApp.Commands.Client;
 using CarDealershipApp.Commands.Contract;
@@ -17,7 +18,7 @@ namespace CarDealershipApp
         private readonly ICarRepository _carRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IContractRepository _contractRepository;
-        public General(SqlOptions sqlOptions)
+        public General(SqlOptions sqlOptions, AppOptions appOptions)
         {
             _commands = new List<Command>();
             _carRepository = new DbCarRepository(sqlOptions);
