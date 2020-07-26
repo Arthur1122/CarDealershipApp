@@ -21,9 +21,20 @@ namespace CarDealershipApp
         public General(SqlOptions sqlOptions, AppOptions appOptions)
         {
             _commands = new List<Command>();
-            _carRepository = new DbCarRepository(sqlOptions);
-            _clientRepository = new DbClientRepository(sqlOptions);
-            _contractRepository = new DbContractRepository(sqlOptions);
+            if (appOptions.Mode == AppMode.AdoNet)
+            {
+                _carRepository = new DbCarRepository(sqlOptions);
+                _clientRepository = new DbClientRepository(sqlOptions);
+                _contractRepository = new DbContractRepository(sqlOptions);
+            }
+            else if(appOptions.Mode == AppMode.InMemory)
+            {
+                _carRepository = new CarRepository();
+                _clientRepository = new ClientRepository();
+                _contractRepository = new ContractRepository();
+            }
+            
+            
 
             // cars
             _commands.Add(new AddCarCommand(_carRepository));
