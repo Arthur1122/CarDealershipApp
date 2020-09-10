@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealershipApp", "CarDealershipApp\CarDealershipApp.csproj", "{ECAAB32D-D454-4001-BB06-9B9002CBD53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Repository.Interfaces", "CarDealership.Repository.Interfaces\CarDealership.Repository.Interfaces.csproj", "{00176E5B-DD52-44AF-8DD6-3B7CEF46F11F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership.Repository.Interfaces", "CarDealership.Repository.Interfaces\CarDealership.Repository.Interfaces.csproj", "{00176E5B-DD52-44AF-8DD6-3B7CEF46F11F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Repository.AdoNet", "CarDealership.Repository.AdoNet\CarDealership.Repository.AdoNet.csproj", "{70ECBDFE-29CA-4E88-B68D-C5F09A8B2184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership.Repository.AdoNet", "CarDealership.Repository.AdoNet\CarDealership.Repository.AdoNet.csproj", "{70ECBDFE-29CA-4E88-B68D-C5F09A8B2184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Domain", "CarDealership.Domain\CarDealership.Domain.csproj", "{E3F4971A-E1CC-43C6-A983-191928525E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership.Domain", "CarDealership.Domain\CarDealership.Domain.csproj", "{E3F4971A-E1CC-43C6-A983-191928525E13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Repository.InMemory", "CarDealership.Repository.InMemory\CarDealership.Repository.InMemory.csproj", "{8F206CF9-BB40-4684-A353-918E5F5110D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership.Repository.InMemory", "CarDealership.Repository.InMemory\CarDealership.Repository.InMemory.csproj", "{8F206CF9-BB40-4684-A353-918E5F5110D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Common", "CarDealership.Common\CarDealership.Common.csproj", "{CE1FFE53-BB60-4BCF-A894-8D0C2C77626C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership.Common", "CarDealership.Common\CarDealership.Common.csproj", "{CE1FFE53-BB60-4BCF-A894-8D0C2C77626C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealership.Repository.EF", "CarDealership.Repository.EF\CarDealership.Repository.EF.csproj", "{112B72D4-A3D9-47B5-B560-C10350357452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{CE1FFE53-BB60-4BCF-A894-8D0C2C77626C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE1FFE53-BB60-4BCF-A894-8D0C2C77626C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE1FFE53-BB60-4BCF-A894-8D0C2C77626C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{112B72D4-A3D9-47B5-B560-C10350357452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112B72D4-A3D9-47B5-B560-C10350357452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112B72D4-A3D9-47B5-B560-C10350357452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112B72D4-A3D9-47B5-B560-C10350357452}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
