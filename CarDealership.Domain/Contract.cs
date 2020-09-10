@@ -16,10 +16,13 @@ namespace CarDealershipApp.Domain
         public int CarId { get; set; }
         public Client Client { get; set; }
         public int ClientId { get; set; }
-        public Contract(Car car,Client client)
+        public static Contract CreateContract(Car car,Client client)
         {
-            Car = car;
-            Client = client;
+            return new Contract
+            {
+                Car = car,
+                Client = client,
+            };
         }
         public Contract()
         {

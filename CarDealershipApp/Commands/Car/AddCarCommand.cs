@@ -23,7 +23,7 @@ namespace CarDealershipApp.Commands.Car
             Console.WriteLine("Car price: ");
             string str = Console.ReadLine();
             decimal price = Decimal.Parse(str);
-            Domain.Car car = new Domain.Car(number,price);
+            Domain.Car car = Domain.Car.CreateCar(number,price);
             bool success = _carRepository.Add(car);
             string message = "Car added successfully";
             if (!success)

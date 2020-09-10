@@ -10,14 +10,19 @@ namespace CarDealershipApp.Domain
         public string Name { get; set; }
         public string PasportId { get; set; }
         public List<Car> Cars { get; set; }
-        public Client(string name, string pasport) : this()
+        public static Client CreateClient(string name, string pasport)
         {
-            Name = name;
-            PasportId = pasport;
+            return new Client
+            {
+                Name = name,
+                PasportId = pasport,
+                Cars = new List<Car>(),
+            };
         }
+
         public Client()
         {
-            Cars = new List<Car>();
+            
         }
     }
 }

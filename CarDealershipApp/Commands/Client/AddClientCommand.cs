@@ -21,7 +21,7 @@ namespace CarDealershipApp.Commands.Client
             string clientName = Console.ReadLine();
             Console.WriteLine("Please enter client pasport id");
             string pasportId = Console.ReadLine();
-            Domain.Client client = new Domain.Client(clientName, pasportId);
+            Domain.Client client = Domain.Client.CreateClient(clientName, pasportId);
             bool success = _clientRepository.AddClient(client);
             string message = "Client added successfuly";
             if (!success)
