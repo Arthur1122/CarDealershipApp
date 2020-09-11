@@ -13,9 +13,9 @@ namespace CarDealershipApp.Domain
         public ContractType Type { get; set; }
         public decimal TotalCost { get; set; }
         public Car Car { get; set; }
-        public int CarId { get; set; }
+        public long CarId { get; set; }
         public Client Client { get; set; }
-        public int ClientId { get; set; }
+        public long ClientId { get; set; }
         public static Contract CreateContract(Car car,Client client)
         {
             return new Contract

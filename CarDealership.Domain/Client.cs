@@ -6,7 +6,7 @@ namespace CarDealershipApp.Domain
 {
    public class Client
    {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string PasportId { get; set; }
         public List<Car> Cars { get; set; }

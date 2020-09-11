@@ -1,4 +1,5 @@
 ﻿using CarDealership.Common;
+using CarDealership.Repository.EF;
 using CarDealershipApp.Commands;
 using CarDealershipApp.Commands.Car;
 using CarDealershipApp.Commands.Client;
@@ -18,27 +19,17 @@ namespace CarDealershipApp
         private readonly ICarRepository _carRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IContractRepository _contractRepository;
-        public General(SqlOptions sqlOptions, AppOptions appOptions)
-        {
-            _commands = new List<Command>();
-            if (appOptions.Mode == AppMode.AdoNet)
-            {
-                _carRepository = new DbCarRepository(sqlOptions);
-                _clientRepository = new DbClientRepository(sqlOptions);
-                _contractRepository = new DbContractRepository(sqlOptions);
-            }
-            else if(appOptions.Mode == AppMode.InMemory)
-            {
-                _carRepository = new CarRepository();
-                _clientRepository = new ClientRepository();
-                _contractRepository = new ContractRepository();
-            }
-            
-            
 
+        public General(ICarRepository carRepository, IClientRepository clientRepository, IContractRepository contractRepository)
+        {
+            _carRepository = carRepository;
+            _clientRepository = clientRepository;
+            _contractRepository = contractRepository;
+
+            _commands = new List<Command>();
             // cars
             _commands.Add(new AddCarCommand(_carRepository));
-            _commands.Add(new SellCarCommand(_carRepository,_clientRepository,_contractRepository));
+            _commands.Add(new SellCarCommand(_carRepository, _clientRepository, _contractRepository));
             _commands.Add(new ListCarsCommand(_carRepository));
             _commands.Add(new FindCarCommand(_carRepository));
             // clients
@@ -48,7 +39,6 @@ namespace CarDealershipApp
             // Contracts
             _commands.Add(new ListContractCommand(_contractRepository));
             _commands.Add(new FindContractCommand(_contractRepository));
-
         }
 
         public void Start()

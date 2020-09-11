@@ -109,7 +109,7 @@ namespace CarDealershipApp.DbRepository
             {
                 SqlCommand sqlCommand = new SqlCommand(
                     "UPDATE Cars "+
-                    $"SET IsSold = {car.IsSold.GetHashCode()}, ClientId = {client.Id} " +
+                    $"SET IsSold = {car.IsSold.CompareTo(car.IsSold)}, ClientId = {client.Id} " +
                     $"WHERE Cars.CarId = {car.Id}", connection);
                 sqlCommand.ExecuteNonQuery();
             }

@@ -7,6 +7,7 @@ namespace CarDealership.Common
     public enum AppMode
     {
         InMemory,
-        AdoNet
+        AdoNet,
+        EfCore
     }
 }

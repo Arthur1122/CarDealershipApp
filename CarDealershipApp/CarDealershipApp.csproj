@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
@@ -14,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarDealership.Domain\CarDealership.Domain.csproj" />
     <ProjectReference Include="..\CarDealership.Repository.AdoNet\CarDealership.Repository.AdoNet.csproj" />
+    <ProjectReference Include="..\CarDealership.Repository.EF\CarDealership.Repository.EF.csproj" />
     <ProjectReference Include="..\CarDealership.Repository.InMemory\CarDealership.Repository.InMemory.csproj" />
     <ProjectReference Include="..\CarDealership.Repository.Interfaces\CarDealership.Repository.Interfaces.csproj" />
   </ItemGroup>
