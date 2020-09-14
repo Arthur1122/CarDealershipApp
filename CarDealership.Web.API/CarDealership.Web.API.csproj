@@ -19,9 +19,5 @@
     <ProjectReference Include="..\CarDealership.Repository.Interfaces\CarDealership.Repository.Interfaces.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ExtensionMethods\" />
-  </ItemGroup>
-
 
 </Project>

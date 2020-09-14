@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarDealership.Web.API.ExtensionMethods;
 using CarDealership.Web.API.ViewModels;
 using CarDealershipApp.Domain;
 using CarDealershipApp.Interface;
@@ -36,18 +37,7 @@ namespace CarDealership.Web.API.Controllers
                 viewContracts = new List<ContractViewModel>();
                 foreach (var contract in contracts)
                 {
-                    viewContracts.Add(new ContractViewModel
-                    {
-                       ContractId = contract.Id,
-                       CarNumber = contract.Car.Number,
-                       TotalCost = contract.Car.Price,
-                       Months = contract.Months,
-                       MonthsPayment = contract.MonthsPayment,
-                       Type = contract.Type,
-                       FirstPayment = contract.FirstPayment,
-                       ClientName = contract.Client.Name,
-                       ClientPassportId = contract.Client.PasportId
-                    });
+                    viewContracts.Add(contract.CreateContractModel(contract));
                 }
             }
             return Ok(viewContracts);
@@ -61,19 +51,7 @@ namespace CarDealership.Web.API.Controllers
             {
                 return StatusCode(404, "There is not such contract");
             }
-            var viewContract = new ContractViewModel
-            {
-                ContractId = contract.Id,
-                CarNumber = contract.Car.Number,
-                TotalCost = contract.Car.Price,
-                Months = contract.Months,
-                MonthsPayment = contract.MonthsPayment,
-                Type = contract.Type,
-                FirstPayment = contract.FirstPayment,
-                ClientName = contract.Client.Name,
-                ClientPassportId = contract.Client.PasportId
-            };
-            return Ok(viewContract);
+            return Ok(contract.CreateContractModel(contract));
         }
 
         [HttpPost("SellCar")]

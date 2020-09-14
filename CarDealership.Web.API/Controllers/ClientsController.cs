@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarDealership.Web.API.ExtensionMethods;
 using CarDealership.Web.API.ViewModels;
 using CarDealershipApp.Domain;
 using CarDealershipApp.Interface;
@@ -25,32 +26,13 @@ namespace CarDealership.Web.API.Controllers
         public ActionResult<IEnumerable<ClientViewModel>> GetClients()
         {
             var clients = _clientRepository.ClientsList();
-            List<ClientViewModel> viewClients = new List<ClientViewModel>();
-            List<CarViewModel> viewCars = null;
-
+            List<ClientViewModel> viewClients = null;
             if (clients.Count > 0)
             {
+                viewClients = new List<ClientViewModel>();
                 foreach (var client in clients)
                 {
-                    if (client.Cars.Count > 0)
-                    {
-                        viewCars = new List<CarViewModel>();
-                        foreach (var car in client.Cars)
-                        {
-                            viewCars.Add(new CarViewModel
-                            {
-                                Number = car.Number,
-                                Price = car.Price,
-                                IsSold = car.IsSold
-                            });
-                        }
-                    }
-                    viewClients.Add(new ClientViewModel
-                    {
-                        Name = client.Name,
-                        PasportId = client.PasportId,
-                        Cars = viewCars
-                    });
+                    viewClients.Add(client.CreateClientModel(client));
                 }
             }
             return Ok(viewClients);
@@ -60,34 +42,12 @@ namespace CarDealership.Web.API.Controllers
         public ActionResult<ClientViewModel> GetClient(string passportId)
         {
             var client = _clientRepository.FindClient(passportId);
-            ClientViewModel viewClient = null;
-            List<CarViewModel> viewCars = null;
 
             if (client is null)
             {
                 return StatusCode(404, "There is not such client");
             }
-            
-            if(client.Cars.Count > 0)
-            {
-                viewCars = new List<CarViewModel>();
-                foreach (var car in client.Cars)
-                {
-                    viewCars.Add(new CarViewModel
-                    {
-                        Number = car.Number,
-                        Price = car.Price,
-                        IsSold = car.IsSold
-                    });
-                }
-            }
-
-            viewClient = new ClientViewModel
-            {
-                Name = client.Name,
-                PasportId = client.PasportId,
-                Cars = viewCars,
-            };
+            var viewClient = client.CreateClientModel(client);
             return Ok(viewClient);
         }
     }
